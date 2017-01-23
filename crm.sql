@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump taqi ratnani
+-- phpMyAdmin SQL Dump taqi ratnani is and idiot
 -- version 4.5.5.1
 -- http://www.phpmyadmin.net
 --
