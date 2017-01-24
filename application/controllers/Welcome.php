@@ -24,12 +24,18 @@ class Welcome extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->database();
 		$this->load->library('session');
+        $this->load->library('form_validation');
 	}
 	
 	public function index()
 	{
 		$this->load->view('login');
 	}
+
+    public function dashboard()
+    {
+        $this->load->view('dashboard');
+    }
 	
 	public function addregion()
 	{
@@ -135,10 +141,9 @@ class Welcome extends CI_Controller {
 		$Password =  $this->input->post('Password');
 		
 		$result = '';
-		 
+		
 		foreach ($query->result() as $row)
 		{
-			log_message('debug', 'sql query fail in... ' . $row->Username . ' ' . $row->Password, false);
 			if($row->Username == $Username && $row->Password == $Password)
 			{
 				$result = 'Successful';
@@ -148,8 +153,8 @@ class Welcome extends CI_Controller {
 				$result = 'Failed';
 			}
 		}
-		
-		echo $result; 
+
+        echo json_encode( $result );
 	}
 	
 	public function submitUser()
@@ -167,6 +172,10 @@ class Welcome extends CI_Controller {
 		);
 		
 		$this->db->insert('users', $data);
+
+        $result = 'Successful';
+
+        echo json_encode( $result );
 	}
 	
 	public function submitRegion()
@@ -177,6 +186,10 @@ class Welcome extends CI_Controller {
 		);
 		
 		$this->db->insert('region', $data);
+
+        $result = 'Successful';
+
+        echo json_encode( $result );
 	}
 	
 	public function user_data_submit() 
@@ -199,6 +212,10 @@ class Welcome extends CI_Controller {
 		);
 	
 		$this->db->insert('role', $data);
+
+        $result = 'Successful';
+
+        echo json_encode( $result );
 	}
 	
 	public function AddBranch()
@@ -212,6 +229,10 @@ class Welcome extends CI_Controller {
 		);
 	
 		$this->db->insert('branch', $data);
+
+        $result = 'Successful';
+
+        echo json_encode( $result );
 	}
 	
 	public function AddCounter()
@@ -224,6 +245,10 @@ class Welcome extends CI_Controller {
 		);
 	
 		$this->db->insert('BranchCounters', $data);
+
+        $result = 'Successful';
+
+        echo json_encode( $result );
 	}
 	
 	public function AddNetwork()
@@ -236,5 +261,14 @@ class Welcome extends CI_Controller {
 		);
 	
 		$this->db->insert('network', $data);
+
+        $result = 'Successful';
+
+        echo json_encode( $result );
 	}
+
+    public function logout()
+    {
+
+    }
 }
