@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Bank CRM</title>
+    <title>Bank CRM </title>
 
     <script type="text/javascript">
         //<![CDATA[
@@ -436,6 +436,7 @@ right for Marsellus to throw...
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-box">
+                                    <div class="alert alert-danger fade in" id="Error" style="display: none;"></div>
                                     <div class="alert alert-success" id="RegionMsg" style="display: none;"></div>
                                     <header class="main-box-header clearfix"></header>
                                     <div class="main-box-body clearfix">
@@ -582,6 +583,11 @@ right for Marsellus to throw...
 
                 var region = $("#Region").val();
 
+                if(region == ""){
+                    $("#Error").show().html("Enter Region");
+                    return false;
+                }
+
                 $.ajax({
                     url : "<?php echo base_url(); ?>index.php/welcome/submitRegion",
                     type : "POST",
@@ -589,6 +595,7 @@ right for Marsellus to throw...
                     data : {"Region" : region},
                     success : function(data) {
                         if(data == "Successful"){
+                            $("#Error").hide();
                             location.href = "<?php echo base_url(); ?>index.php/welcome/regions";
                             sessionStorage.setItem("RegionMsg", region + " added successfully");
                         }

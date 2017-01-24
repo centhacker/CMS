@@ -436,6 +436,7 @@ right for Marsellus to throw...
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-box">
+                                    <div class="alert alert-danger fade in" id="Error" style="display: none;"></div>
                                     <div class="alert alert-success" id="CounterMsg" style="display: none;"></div>
                                     <header class="main-box-header clearfix"></header>
                                     <div class="main-box-body clearfix">
@@ -589,6 +590,14 @@ right for Marsellus to throw...
                 var CounterName = $("#CounterName").val();
                 var SortOrder = $("#SortOrder").val();
 
+                if(CounterName == ""){
+                    $("#Error").show().html("Enter Counter Name");
+                    return false;
+                } else if(SortOrder == ""){
+                    $("#Error").show().html("Enter Sort Order");
+                    return false;
+                }
+
                 $.ajax({
                     url : "<?php echo base_url(); ?>index.php/welcome/AddCounter",
                     type : "POST",
@@ -596,6 +605,7 @@ right for Marsellus to throw...
                     data : {"CounterName" : CounterName, "SortOrder" : SortOrder},
                     success : function(data) {
                         if(data == "Successful"){
+                            $("#Error").hide();
                             location.href = "<?php echo base_url(); ?>index.php/welcome/branches";
                             sessionStorage.setItem("CounterMsg", CounterName + " added successfully");
                         }

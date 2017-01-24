@@ -129,8 +129,15 @@ class Welcome extends CI_Controller {
 					'RegionId' => $this->session->userdata('status'),
 					'RoleId' => $myArray[$i]
 			);
-			
-			$this->db->insert('regionrole', $data);
+
+            $this->db->where('RegionId', $this->session->userdata('status'));
+            $this->db->delete('regionrole');
+
+            $this->db->insert('regionrole', $data);
+
+            $result = 'Successful';
+
+            echo json_encode( $result );
 		}
 	}
 	
@@ -139,14 +146,15 @@ class Welcome extends CI_Controller {
 		$query = $this->db->get('users');
 		$Username =  $this->input->post('Username');
 		$Password =  $this->input->post('Password');
-		
+
 		$result = '';
-		
+
 		foreach ($query->result() as $row)
 		{
 			if($row->Username == $Username && $row->Password == $Password)
 			{
 				$result = 'Successful';
+                break;
 			}
 			else
 			{

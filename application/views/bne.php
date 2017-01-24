@@ -444,6 +444,7 @@ right for Marsellus to throw...
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab-branch">
+                                                <div class="alert alert-danger fade in" id="BranchError" style="display: none;"></div>
                                                 <div class="alert alert-success" id="BranchMsg" style="display: none;"></div>
                                                 <div class="main-box-body clearfix">
                                                     <form class="form-horizontal" role="form">
@@ -482,6 +483,7 @@ right for Marsellus to throw...
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-network">
+                                                <div class="alert alert-danger fade in" id="NetworkError" style="display: none;"></div>
                                                 <div class="alert alert-success" id="NetworkMsg" style="display: none;"></div>
                                                 <div class="main-box-body clearfix">
                                                     <form class="form-horizontal" role="form">
@@ -643,6 +645,14 @@ right for Marsellus to throw...
                 var BranchAdd = $("#BranchAdd").val();
                 var Region = $("#Region").val();
 
+                if(BranchName == ""){
+                    $("#BranchError").show().html("Enter Branch Name");
+                    return false;
+                } else if(BranchAdd == ""){
+                    $("#BranchError").show().html("Enter Branch Address");
+                    return false;
+                }
+
                 $.ajax({
                     url : "<?php echo base_url(); ?>index.php/welcome/AddBranch",
                     type : "POST",
@@ -650,6 +660,7 @@ right for Marsellus to throw...
                     data : {"BranchName" : BranchName, "BranchAdd" : BranchAdd, "Region": Region},
                     success : function(data) {
                         if(data == "Successful"){
+                            $("#BranchError").hide();
                             $("#BranchMsg").show().html(BranchName + " added successfully");
                             $("input[type='text']").val("");
                             $("#Region").val($("#Region option:first").val());
@@ -666,6 +677,14 @@ right for Marsellus to throw...
                 var Ip = $("#Ip").val();
                 var Port = $("#Port").val();
 
+                if(Ip == ""){
+                    $("#NetworkError").show().html("Enter Ip");
+                    return false;
+                } else if(Port == ""){
+                    $("#NetworkError").show().html("Enter Port");
+                    return false;
+                }
+
                 $.ajax({
                     url : "<?php echo base_url(); ?>index.php/welcome/AddNetwork",
                     type : "POST",
@@ -673,6 +692,7 @@ right for Marsellus to throw...
                     data : {"Ip" : Ip, "Port" : Port},
                     success : function(data) {
                         if(data == "Successful"){
+                            $("#NetworkError").hide();
                             $("#NetworkMsg").show().html(Ip + ":" + Port + " added successfully");
                             $("input[type='text']").val("");
                         }

@@ -436,6 +436,7 @@ right for Marsellus to throw...
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-box">
+                                    <div class="alert alert-danger fade in" id="Error" style="display: none;"></div>
                                     <div class="alert alert-success" id="RoleMsg" style="display: none;"></div>
                                     <header class="main-box-header clearfix"></header>
                                     <div class="main-box-body clearfix">
@@ -582,6 +583,11 @@ right for Marsellus to throw...
 
                 var role = $("#Role").val();
 
+                if(role == ""){
+                    $("#Error").show().html("Enter Role");
+                    return false;
+                }
+
                 $.ajax({
                     url : "<?php echo base_url(); ?>index.php/welcome/submitRole",
                     type : "POST",
@@ -589,6 +595,7 @@ right for Marsellus to throw...
                     data : {"Role" : role},
                     success : function(data) {
                         if(data == "Successful"){
+                            $("#Error").hide();
                             $("#RoleMsg").show().html(role + " added successfully");
                             $("input[type='text']").val("");
                         }

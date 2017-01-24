@@ -435,6 +435,7 @@ right for Marsellus to throw...
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-box">
+                                    <div class="alert alert-danger fade in" id="Error" style="display: none;"></div>
                                     <div class="alert alert-success" id="UserMsg" style="display: none;"></div>
                                     <header class="main-box-header clearfix"></header>
                                     <div class="main-box-body clearfix">
@@ -602,6 +603,20 @@ right for Marsellus to throw...
                 var uName =  $("#Username").val();
                 var pass = $("#Password").val();
 
+                if(fName == ""){
+                    $("#Error").show().html("Enter First Name");
+                    return false;
+                } else if(lName == ""){
+                    $("#Error").show().html("Enter Last Name");
+                    return false;
+                } else if(uName == ""){
+                    $("#Error").show().html("Enter Username");
+                    return false;
+                } else if(pass == ""){
+                    $("#Error").show().html("Enter Password");
+                    return false;
+                }
+
                 $.ajax({
                     url : "<?php echo base_url(); ?>index.php/welcome/submitUser",
                     type : "POST",
@@ -609,6 +624,7 @@ right for Marsellus to throw...
                     data : {"FirstName" : fName, "LastName" : lName, "Username" : uName, "Password" : pass},
                     success : function(data) {
                         if(data == "Successful"){
+                            $("#Error").hide();
                             $("#UserMsg").show().html(uName + " added successfully");
                             $("input[type='text'], input[type='password']").val("");
                         }
